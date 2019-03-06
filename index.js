@@ -2,6 +2,9 @@ document.getElementById('question-save').addEventListener('click', onSave)
 document.getElementById('profile-save').addEventListener('click', onProfileSave)
 
 firebase.database().ref(
+	'users/test/form'
+).on('value', onQuestionsLoad)
+firebase.database().ref(
 	'users/test/profile'
 ).on('value', onProfileLoad)
 
@@ -40,10 +43,33 @@ function onProfileSave() {
 	)
 }
 
-function onLoad (snapshot) {
-	var question = snapshot.val()
-	document.getElementById('question-title').value = question.title
+function onQuestionsLoad (snapshot) {
+	var questions = snapshot.val()
+	document.getElementById('questions-container').innerHTML = ''
+	snapshot.forEach(function (snapshot) {
+		var question = snapshot.val()
+		var key = snapshot.key
+		
+		var el = document.createElement('div')
+		
+		var titleEl = document.createElement('textarea')
+		titleEl.value = question.title
+		
+		var saveEl = document.createElement('button')
+		saveEl.innerText = 'Сохранить'
+		saveEl.addEventListener('click', function () {
+			firebase.database().ref(
+				'users/test/form/' + key
+			).update({ title: titleEl.value })
+		})
+
+		el.appendChild(titleEl)
+		el.appendChild(saveEl)
+		
+		document.getElementById('questions-container').appendChild(el)
+	})
 }
+
 
 function onProfileLoad (snapshot) {
 	var profile = snapshot.val()
