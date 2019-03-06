@@ -1,5 +1,9 @@
 document.getElementById('question-save').addEventListener('click', onSave);
 
+firebase.database().ref(
+	'users/test/form/1'
+).on('value', onLoad)
+
 function onSave() {
 	var title = document.getElementById(
 		'question-title'
@@ -15,6 +19,11 @@ function onSave() {
 		'style',
 		'display: block'
 	)
+}
+
+function onLoad (snapshot) {
+	var question = snapshot.val()
+	document.getElementById('question-title').value = question.title
 }
 
 function onSaveComplete(err) {
