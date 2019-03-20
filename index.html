@@ -14,11 +14,14 @@
 		  };
 		  firebase.initializeApp(config);
 		</script>
+		<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+		<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 		<link rel="stylesheet" href="index.css"/>
 	</head>
 	<body>
 		<img src="images/loader.gif" id="loader">
 		<div id="message"></div>
+		<div id="auth"></div>
 		<div id="forms-list">
 			<a id="open-profile-edit">Настроить свой профиль</a>
 			<h2>Список анкет</h2>

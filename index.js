@@ -1,3 +1,16 @@
+var ui = new firebaseui.auth.AuthUI(firebase.auth())
+ui.start('#auth', {
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.EmailAuthProvider.PROVIDER_ID
+  ],
+  signInSuccessUrl: location.href
+})
+firebase.auth().onAuthStateChanged(onAuth);
+function onAuth (user) {
+	alert('Привет, ' + user.displayName)
+}
+
 // сипсок анкет
 document.getElementById('open-profile-edit').addEventListener('click', onOpenProfileEdit)
 function onOpenProfileEdit () {
