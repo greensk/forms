@@ -1,4 +1,27 @@
-// document.getElementById('question-save').addEventListener('click', onSave)
+// сипсок анкет
+document.getElementById('open-profile-edit').addEventListener('click', onOpenProfileEdit)
+function onOpenProfileEdit () {
+	document.getElementById('profile-edit').classList.remove('hidden');
+	document.getElementById('forms-list').classList.add('hidden');
+}
+firebase.database().ref('users').on('value', onFormsListLoaded)
+
+function onFormsListLoaded (snapshot) {
+	// очистка контейнера, чтобы заиписи не дублировались
+	document.getElementById('forms-list-content').innerHTML = ''
+	snapshot.forEach(addFormToList)
+}
+
+function addFormToList (snapshot) {	
+	var form = snapshot.val()
+	var el = document.createElement('div')
+	el.classList.add('form-item')
+	el.innerText = form.profile.about
+	document.getElementById('forms-list-content').appendChild(el)
+}
+
+
+// редактирование профиля
 document.getElementById('question-add').addEventListener('click', onQuestionAdd)
 document.getElementById('profile-save').addEventListener('click', onProfileSave)
 var userId = 'test'

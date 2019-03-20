@@ -17,9 +17,14 @@
 		<link rel="stylesheet" href="index.css"/>
 	</head>
 	<body>
-		<div id="app">
-			<img src="images/loader.gif" id="loader">
-			<div id="message"></div>
+		<img src="images/loader.gif" id="loader">
+		<div id="message"></div>
+		<div id="forms-list">
+			<a id="open-profile-edit">Настроить свой профиль</a>
+			<h2>Список анкет</h2>
+			<div id="forms-list-content"></div>
+		</div>
+		<div id="profile-edit" class="hidden">
 			<div id="profile">
 				<div class="label">Укажите информацию о себе:</div>
 				<textarea id="profile-about"></textarea>
@@ -27,15 +32,6 @@
 					<button id="profile-save">Сохранить</button>
 				</div>
 			</div>
-            <!--
-			<div id="form">
-				<div class="label">Введите вопрос:</div>
-				<textarea id="question-title"></textarea>
-				<div>
-					<button id="question-save">Сохранить</button>
-				</div>
-			</div>
-            -->
             <button id="question-add">
                 Добавить вопрос
             </button>

@@ -4,14 +4,12 @@ var path = 'users/test/profile'
 firebase.database().ref(path).on('value', onSomehtingLoaded)
 
 onSomehtingLoaded (snapshot) {
-	var record = snapshot.val()
-	document.getElementById('some-id').innerText = record.someText
+	// очистка контейнера, чтобы заиписи не дублировались
+	document.getElementById('some-container').innerHTML = ''	
 	snapshot.forEach(onSingleSomethingLoaded)
 }
 
 onSingleSomethingLoaded (snapshot) {
-	// очистка контейнера, чтобы заиписи не дублировались
-	document.getElementById('some-container').innerHTML = ''
 	
 	var record = snapshot.val()
 	var el = document.createElement('div')
