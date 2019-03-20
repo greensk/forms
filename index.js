@@ -1,12 +1,12 @@
 // document.getElementById('question-save').addEventListener('click', onSave)
 document.getElementById('question-add').addEventListener('click', onQuestionAdd)
 document.getElementById('profile-save').addEventListener('click', onProfileSave)
-
+var userId = 'test'
 firebase.database().ref(
-	'users/test/form'
+	'users/' + userId + '/form'
 ).on('value', onQuestionsLoad)
 firebase.database().ref(
-	'users/test/profile'
+	'users/' + userId + '/profile'
 ).on('value', onProfileLoad)
 
 
@@ -15,7 +15,7 @@ function onSave() {
 		'question-title'
 	).value
 	var question = {'title': title}
-	var list = firebase.database().ref('users/test/form')
+	var list = firebase.database().ref('users/' + userId + '/form')
 	var newItem = list.push()
 	newItem.set(
 		question,
@@ -33,7 +33,7 @@ function onProfileSave() {
 	).value
 	var profile = {'about': about}
 	firebase.database().ref(
-		'users/test/profile'
+		'users/' + userId + '/profile'
 	).set(
 		profile,
 		onSaveComplete
@@ -45,9 +45,9 @@ function onProfileSave() {
 }
 
 function onQuestionAdd () {
-    var newQuestion = firebase.database().ref('users/test/form').push()
+    var newQuestion = firebase.database().ref('users/' + userId + '/form').push()
     var key = newQuestion.key
-    createQuestionForm(key, {title: ''})
+    createQuestionInForm(key, {title: ''})
 }
 
 function onQuestionsLoad (snapshot) {
@@ -56,11 +56,11 @@ function onQuestionsLoad (snapshot) {
 	snapshot.forEach(function (snapshot) {
 		var question = snapshot.val()
 		var key = snapshot.key
-		createQuestionForm(key, question)
+		createQuestionInForm(key, question)
 	})
 }
 
-function createQuestionForm (key, question) {
+function createQuestionInForm (key, question) {
     var el = document.createElement('div')
 		
     var titleEl = document.createElement('textarea')
@@ -70,12 +70,21 @@ function createQuestionForm (key, question) {
     saveEl.innerText = 'Сохранить'
     saveEl.addEventListener('click', function () {
         firebase.database().ref(
-            'users/test/form/' + key
+            'users/' + userId + '/form/' + key
         ).update({ title: titleEl.value })
     })
+	
+	var removeEl = document.createElement('button')
+	removeEl.innerText = 'Удалить'
+	removeEl.addEventListener('click', function () {
+		firebase.database().ref(
+            'users/' + userId + '/form/' + key
+        ).remove()
+	})
 
     el.appendChild(titleEl)
     el.appendChild(saveEl)
+	el.appendChild(removeEl)
 		
     document.getElementById('questions-container').appendChild(el)
 }
