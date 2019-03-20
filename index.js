@@ -1,4 +1,5 @@
-document.getElementById('question-save').addEventListener('click', onSave)
+// document.getElementById('question-save').addEventListener('click', onSave)
+document.getElementById('question-add').addEventListener('click', onQuestionAdd)
 document.getElementById('profile-save').addEventListener('click', onProfileSave)
 
 firebase.database().ref(
@@ -43,31 +44,40 @@ function onProfileSave() {
 	)
 }
 
+function onQuestionAdd () {
+    var newQuestion = firebase.database().ref('users/test/form').push()
+    var key = newQuestion.key
+    createQuestionForm(key, {title: ''})
+}
+
 function onQuestionsLoad (snapshot) {
 	var questions = snapshot.val()
 	document.getElementById('questions-container').innerHTML = ''
 	snapshot.forEach(function (snapshot) {
 		var question = snapshot.val()
 		var key = snapshot.key
-		
-		var el = document.createElement('div')
-		
-		var titleEl = document.createElement('textarea')
-		titleEl.value = question.title
-		
-		var saveEl = document.createElement('button')
-		saveEl.innerText = 'Сохранить'
-		saveEl.addEventListener('click', function () {
-			firebase.database().ref(
-				'users/test/form/' + key
-			).update({ title: titleEl.value })
-		})
-
-		el.appendChild(titleEl)
-		el.appendChild(saveEl)
-		
-		document.getElementById('questions-container').appendChild(el)
+		createQuestionForm(key, question)
 	})
+}
+
+function createQuestionForm (key, question) {
+    var el = document.createElement('div')
+		
+    var titleEl = document.createElement('textarea')
+    titleEl.value = question.title
+		
+    var saveEl = document.createElement('button')
+    saveEl.innerText = 'Сохранить'
+    saveEl.addEventListener('click', function () {
+        firebase.database().ref(
+            'users/test/form/' + key
+        ).update({ title: titleEl.value })
+    })
+
+    el.appendChild(titleEl)
+    el.appendChild(saveEl)
+		
+    document.getElementById('questions-container').appendChild(el)
 }
 
 
