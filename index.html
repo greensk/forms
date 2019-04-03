@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<meta charset="utf8">
 		<title>Сервис создания анкет</title>
 		<script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
 		<script>
@@ -15,15 +16,16 @@
 		  firebase.initializeApp(config);
 		</script>
 		<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+		<script src="https://unpkg.com/navigo@6.0.2/lib/navigo.min.js"></script>
 		<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 		<link rel="stylesheet" href="index.css"/>
 	</head>
 	<body>
 		<img src="images/loader.gif" id="loader">
 		<div id="message"></div>
-		<div id="auth"></div>
+		<!--
 		<div id="forms-list">
-			<a id="open-profile-edit">Настроить свой профиль</a>
+			<a id="go-auth-page">Создать свою анкету</a>
 			<h2>Список анкет</h2>
 			<div id="forms-list-content"></div>
 		</div>
@@ -40,6 +42,16 @@
             </button>
 			<div id="questions-container"></div>
 		</div>
-		<script type="text/javascript" src="index.js"></script>
+		-->
+		<div id="header">
+			<a id="go-auth-page">Создать свою анкету</a>
+			<h2>Сервис создания анкет</h2>
+			<div id="forms-list-content"></div>
+		</div>
+		<div id="content"></div>
+		<script type="text/javascript" src="/js/auth.js"></script>
+		<script type="text/javascript" src="/js/profile.js"></script>
+		<script type="text/javascript" src="/js/main.js"></script>
+		<script type="text/javascript" src="/js/index.js"></script>
 	</body>
 </html>
