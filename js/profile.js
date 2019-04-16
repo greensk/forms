@@ -59,7 +59,6 @@ function onQuestionAdd () {
 }
 
 function onQuestionsLoad (snapshot) {
-	var questions = snapshot.val()
 	document.getElementById('questions-list').innerHTML = ''
 	snapshot.forEach(function (snapshot) {
 		var question = snapshot.val()

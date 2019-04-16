@@ -1,9 +1,5 @@
 var ui = new firebaseui.auth.AuthUI(firebase.auth())
 
-firebase.auth().onAuthStateChanged(onAuth);
-function onAuth (user) {
-	userId = user.uid
-}
 
 function showAuthPage () {
 	document.getElementById('content').innerHTML = ''
