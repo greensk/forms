@@ -69,6 +69,26 @@ function onQuestionsLoad (snapshot) {
 }
 
 function createQuestionInForm (key, question) {
+	var questionClone = document.importNode(
+		document.getElementById('question-template').content,
+		true
+	)
+	questionClone.children[0].setAttribute('id', key)
+	questionClone.querySelector('.question-title').value = question.title
+	questionClone.querySelector('.question-save').addEventListener(
+		'click',
+		function () {
+			firebase.database().ref(
+				'users/' + userId + '/form/' + key
+			).update({
+				title: document.querySelector(
+					'#' + key + ' .question-title'
+				).value
+			})
+		}
+	)
+	document.getElementById('questions-list').appendChild(questionClone)
+	/*
     var el = document.createElement('div')
 		
     var titleEl = document.createElement('textarea')
@@ -95,6 +115,7 @@ function createQuestionInForm (key, question) {
 	el.appendChild(removeEl)
 		
     document.getElementById('questions-list').appendChild(el)
+	*/
 }
 
 
